@@ -8,15 +8,17 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import model.ControllerFXML;
 import view.GameView;
+import view.MenuView;
 
 import java.io.IOException;
 
 public class Main extends Application {
-    private ControllerFXML gameView;
+    private ControllerFXML gameView, menuView;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        gameView = loadFXML(primaryStage, "../fxml/game.fxml", "Jackal", 1280, 720, true);
+        menuView = loadFXML(primaryStage, "../fxml/menu.fxml", "Create game", 370, 50, true);
+        gameView = loadFXML(new Stage(), "../fxml/game.fxml", "Jackal", 1280, 720, false);
     }
 
     private ControllerFXML loadFXML(Stage stage, String file, String title, double width, double height, boolean show) throws IOException {
@@ -28,11 +30,16 @@ public class Main extends Application {
         stage.setTitle(title);
         stage.setScene(new Scene(root, width, height));
         stage.getScene().setCursor(Cursor.DEFAULT);
+        controller.createControllers();
         if (show) stage.show();
         return controller;
     }
 
     public GameView getGameView() {
         return (GameView) gameView;
+    }
+
+    public MenuView getMenuView() {
+        return (MenuView) menuView;
     }
 }
