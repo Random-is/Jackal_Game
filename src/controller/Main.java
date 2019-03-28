@@ -17,7 +17,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        menuView = loadFXML(primaryStage, "../fxml/menu.fxml", "Create game", 370, 50, true);
+        menuView = loadFXML(primaryStage, "../fxml/menu.fxml", "Create game", 340, 50, true);
         gameView = loadFXML(new Stage(), "../fxml/game.fxml", "Jackal", 1280, 720, false);
     }
 

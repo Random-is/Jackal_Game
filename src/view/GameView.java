@@ -8,8 +8,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import model.*;
 
-import java.util.ArrayList;
-
 public class GameView extends ControllerFXML {
     private int cardSize = 50;
     private ScalePane gamePane;
@@ -66,8 +64,8 @@ public class GameView extends ControllerFXML {
             gamePane.getItems().add(ship);
             for (int j = 0; j < players.get(i).getPirates().size(); j++) {
                 Pirate pirate = players.get(i).getPirates().get(j);
-                pirate.setFitWidth(cardSize/3f);
-                pirate.setFitHeight(cardSize/3f);
+                pirate.setFitWidth(cardSize / 3f);
+                pirate.setFitHeight(cardSize / 3f);
                 gamePane.getItems().add(pirate);
             }
         }
@@ -108,28 +106,28 @@ public class GameView extends ControllerFXML {
     public void placePirate(Card card, Pirate pirate) {
         switch (card.getPirates().size()) {
             case 1:
-                pirate.setLayoutX(card.getLayoutX() + cardSize/2f - pirate.getFitWidth()/2);
-                pirate.setLayoutY(card.getLayoutY() + cardSize/2f - pirate.getFitHeight()/2);
+                pirate.setLayoutX(card.getLayoutX() + cardSize / 2f - pirate.getFitWidth() / 2);
+                pirate.setLayoutY(card.getLayoutY() + cardSize / 2f - pirate.getFitHeight() / 2);
                 break;
             case 2:
                 if (card.getPirates().indexOf(pirate) == 0) {
-                    pirate.setLayoutX(card.getLayoutX() + cardSize/2f - pirate.getFitWidth()/2 - cardSize/5f);
-                    pirate.setLayoutY(card.getLayoutY() + cardSize/2f - pirate.getFitHeight()/2);
+                    pirate.setLayoutX(card.getLayoutX() + cardSize / 2f - pirate.getFitWidth() / 2 - cardSize / 5f);
+                    pirate.setLayoutY(card.getLayoutY() + cardSize / 2f - pirate.getFitHeight() / 2);
                 } else {
-                    pirate.setLayoutX(card.getLayoutX() + cardSize/2f - pirate.getFitWidth()/2 + cardSize/5f);
-                    pirate.setLayoutY(card.getLayoutY() + cardSize/2f - pirate.getFitHeight()/2);
+                    pirate.setLayoutX(card.getLayoutX() + cardSize / 2f - pirate.getFitWidth() / 2 + cardSize / 5f);
+                    pirate.setLayoutY(card.getLayoutY() + cardSize / 2f - pirate.getFitHeight() / 2);
                 }
                 break;
             case 3:
                 if (card.getPirates().indexOf(pirate) == 0) {
-                    pirate.setLayoutX(card.getLayoutX() + cardSize/2f - pirate.getFitWidth()/2 - cardSize/5f);
-                    pirate.setLayoutY(card.getLayoutY() + cardSize/2f - pirate.getFitHeight()/2 - cardSize/6.25);
+                    pirate.setLayoutX(card.getLayoutX() + cardSize / 2f - pirate.getFitWidth() / 2 - cardSize / 5f);
+                    pirate.setLayoutY(card.getLayoutY() + cardSize / 2f - pirate.getFitHeight() / 2 - cardSize / 6.25);
                 } else if (card.getPirates().indexOf(pirate) == 1) {
-                    pirate.setLayoutX(card.getLayoutX() + cardSize/2f - pirate.getFitWidth()/2 + cardSize/5f);
-                    pirate.setLayoutY(card.getLayoutY() + cardSize/2f - pirate.getFitHeight()/2 - cardSize/6.25);
+                    pirate.setLayoutX(card.getLayoutX() + cardSize / 2f - pirate.getFitWidth() / 2 + cardSize / 5f);
+                    pirate.setLayoutY(card.getLayoutY() + cardSize / 2f - pirate.getFitHeight() / 2 - cardSize / 6.25);
                 } else {
-                    pirate.setLayoutX(card.getLayoutX() + cardSize/2f - pirate.getFitWidth()/2);
-                    pirate.setLayoutY(card.getLayoutY() + cardSize/2f - pirate.getFitHeight()/2 + cardSize/6.25);
+                    pirate.setLayoutX(card.getLayoutX() + cardSize / 2f - pirate.getFitWidth() / 2);
+                    pirate.setLayoutY(card.getLayoutY() + cardSize / 2f - pirate.getFitHeight() / 2 + cardSize / 6.25);
                 }
                 break;
         }
@@ -140,6 +138,9 @@ public class GameView extends ControllerFXML {
         Player player = game.getMainPlayer();
         playerMoney.setText(String.valueOf(player.getMoney()));
         playerRom.setText(String.valueOf(player.getRom()));
+        if (game.getGameType() == GameType.HOT_SEAT)
+            for (int i = 0; i < player.getPirates().size(); i++)
+                piratesImg[i].setImage(player.getPirates().get(i).getImage());
         for (int i = 0; i < players.size(); i++) {
             moneys[i].setText(String.valueOf(players.get(i).getMoney()));
             roms[i].setText(String.valueOf(players.get(i).getRom()));
@@ -148,8 +149,9 @@ public class GameView extends ControllerFXML {
         mapRom.setText(String.valueOf(game.getRom()));
         for (int i = 0; i < 13; i++)
             for (int j = 0; j < 13; j++)
-                for (Pirate pirate : game.getMatrix()[i][j].getPirates())
+                for (Pirate pirate : game.getMatrix()[i][j].getPirates()) {
                     placePirate(game.getMatrix()[i][j], pirate);
+                }
     }
 
     public void reset() {

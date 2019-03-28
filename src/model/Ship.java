@@ -19,8 +19,8 @@ public class Ship extends ImageView {
     }
 
     public void setCard(Card card) {
-        if (card != null)
-            card.setShip(null);
+        if (this.card != null)
+            this.card.setShip(null);
         this.card = card;
     }
 }

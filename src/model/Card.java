@@ -36,6 +36,7 @@ public class Card extends Label {
     }
 
     public void addPirate(Pirate pirate) {
+        open();
         pirate.setCard(this);
         pirates.add(pirate);
     }

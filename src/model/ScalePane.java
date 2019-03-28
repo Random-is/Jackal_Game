@@ -20,18 +20,18 @@ public class ScalePane extends AnchorPane {
 
     private void createField() {
         itemPane.setPrefSize(fieldSize, fieldSize);
-        setTopAnchor(this, (double)0);
-        setBottomAnchor(this, (double)0);
-        setLeftAnchor(this, (double)0);
-        setRightAnchor(this, (double)0);
+        setTopAnchor(this, (double) 0);
+        setBottomAnchor(this, (double) 0);
+        setLeftAnchor(this, (double) 0);
+        setRightAnchor(this, (double) 0);
         getChildren().add(itemPane);
         mouseDragged();
         scaling();
     }
 
     public void centerItems(double width, double height) {
-        itemPane.setLayoutX(width/2 - fieldSize/2 + 25); // + 48
-        itemPane.setLayoutY(height/2 - fieldSize/2 + 35); // + 58
+        itemPane.setLayoutX(width / 2 - fieldSize / 2 + 25); // + 48
+        itemPane.setLayoutY(height / 2 - fieldSize / 2 + 35); // + 58
     }
 
     private void mouseDragged() {

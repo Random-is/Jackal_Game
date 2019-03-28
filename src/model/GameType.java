@@ -1,8 +1,9 @@
 package model;
 
-public enum  GameType {
+public enum GameType {
     CONNECT,
     HOST,
     SINGLE,
-    MULTI
+    MULTI,
+    HOT_SEAT
 }

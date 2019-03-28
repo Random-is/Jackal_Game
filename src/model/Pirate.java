@@ -20,8 +20,8 @@ public class Pirate extends ImageView {
     }
 
     public void setCard(Card card) {
-        if (card != null)
-            card.getPirates().remove(this);
+        if (this.card != null)
+            this.card.getPirates().remove(this);
         this.card = card;
     }
 }

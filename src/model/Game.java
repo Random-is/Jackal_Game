@@ -4,12 +4,15 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class Game {
+    private GameType gameType;
+    private Player currentTurnPlayer;
     private Player mainPlayer;
     private PlayerList players = new PlayerList();
     private Card[][] matrix = new Card[13][13];
     private int money = 40, rom = 10;
 
-    public Game() {
+    public Game(GameType gameType) {
+        this.gameType = gameType;
         players.createPlayers(4);
     }
 
@@ -40,11 +43,34 @@ public class Game {
         for (int i = 0; i < players.size(); i++) {
             Ship ship = players.get(k).getShip();
             matrix[x][y].setShip(ship);
-            matrix[x][y].getPirates().addAll(players.get(k).getPirates());
+            for (int j = 0; j < players.get(k).getPirates().size(); j++)
+                matrix[x][y].addPirate(players.get(k).getPirates().get(j));
             x = i < 1 ? x - 6 : x + 6;
             y = i < 2 ? y - 6 : y + 6;
             k = k == players.size() - 1 ? 0 : (k + 1);
         }
+    }
+
+    public void endTurn() {
+        int current = players.indexOf(currentTurnPlayer);
+        currentTurnPlayer = players.get(current + 1 < players.size() ? current + 1 : 0);
+        if (GameType.HOT_SEAT == gameType) mainPlayer = currentTurnPlayer;
+    }
+
+    public boolean isThisPlayerTurn(Player player) {
+        return currentTurnPlayer == player;
+    }
+
+    public boolean isMainPlayerTurn() {
+        return mainPlayer == currentTurnPlayer;
+    }
+
+    public Player getCurrentTurnPlayer() {
+        return currentTurnPlayer;
+    }
+
+    public void setCurrentTurnPlayer(Player currentTurnPlayer) {
+        this.currentTurnPlayer = currentTurnPlayer;
     }
 
     public int getMoney() {
@@ -77,5 +103,9 @@ public class Game {
 
     public void setMainPlayer(Player mainPlayer) {
         this.mainPlayer = mainPlayer;
+    }
+
+    public GameType getGameType() {
+        return gameType;
     }
 }
