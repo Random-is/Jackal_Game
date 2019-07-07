@@ -1,5 +1,7 @@
 package model;
 
+import controller.Client;
+
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -10,6 +12,7 @@ public class Game {
     private PlayerList players = new PlayerList();
     private Card[][] matrix = new Card[13][13];
     private int money = 40, rom = 10;
+    private Client client;
 
     public Game(GameType gameType) {
         this.gameType = gameType;
@@ -38,18 +41,30 @@ public class Game {
     }
 
     public void placeCrews() {
-        int k = players.indexOf(mainPlayer);
         int x = 6, y = 12;
         for (int i = 0; i < players.size(); i++) {
-            Ship ship = players.get(k).getShip();
+            Ship ship = players.get(i).getShip();
             matrix[x][y].setShip(ship);
-            for (int j = 0; j < players.get(k).getPirates().size(); j++)
-                matrix[x][y].addPirate(players.get(k).getPirates().get(j));
+            for (int j = 0; j < players.get(i).getPirates().size(); j++)
+                matrix[x][y].addPirate(players.get(i).getPirates().get(j));
             x = i < 1 ? x - 6 : x + 6;
             y = i < 2 ? y - 6 : y + 6;
-            k = k == players.size() - 1 ? 0 : (k + 1);
         }
     }
+
+//    public void placeCrews() { //Main Player СНИЗУ
+//        int k = players.indexOf(mainPlayer);
+//        int x = 6, y = 12;
+//        for (int i = 0; i < players.size(); i++) {
+//            Ship ship = players.get(k).getShip();
+//            matrix[x][y].setShip(ship);
+//            for (int j = 0; j < players.get(k).getPirates().size(); j++)
+//                matrix[x][y].addPirate(players.get(k).getPirates().get(j));
+//            x = i < 1 ? x - 6 : x + 6;
+//            y = i < 2 ? y - 6 : y + 6;
+//            k = k == players.size() - 1 ? 0 : (k + 1);
+//        }
+//    }
 
     public void endTurn() {
         int current = players.indexOf(currentTurnPlayer);
@@ -105,7 +120,23 @@ public class Game {
         this.mainPlayer = mainPlayer;
     }
 
+    public void setPlayers(PlayerList players) {
+        this.players = players;
+    }
+
     public GameType getGameType() {
         return gameType;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
+    public void setGameType(GameType gameType) {
+        this.gameType = gameType;
     }
 }

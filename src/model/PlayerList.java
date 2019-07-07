@@ -13,14 +13,29 @@ public class PlayerList extends ArrayList<Player> {
         leader = get(0);
     }
 
-    public void sort() {
-        Player first = new Player();
-        for (int i = 0; i < size(); i++)
-            if (get(i).getColor().equals("white")) {
-                first = get(i);
-                remove(i);
-                break;
+    public void roleToColor() {
+        for (int i = 0; i < size(); i++) {
+            switch (get(i).getRole()) {
+                case 0:
+                    get(i).setColor("white");
+                    break;
+                case 1:
+                    get(i).setColor("yellow");
+                    break;
+                case 2:
+                    get(i).setColor("red");
+                    break;
+                case 3:
+                    get(i).setColor("black");
+                    break;
             }
+        }
+    }
+
+    public void sortByColor() {
+        int ind = indexOfByColor("white");
+        Player first = get(ind);
+        remove(ind);
         Collections.shuffle(this);
         add(0, first);
     }
@@ -50,6 +65,13 @@ public class PlayerList extends ArrayList<Player> {
 
     public Player get(String nickname) {
         return get(indexOf(nickname));
+    }
+
+    public int indexOfByColor(String color) {
+        for (int i = 0; i < size(); i++)
+            if (color.equals(get(i).getColor()))
+                return i;
+        return -1;
     }
 
     public int indexOf(String nickname) {

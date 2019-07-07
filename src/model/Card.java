@@ -1,21 +1,27 @@
 package model;
 
-import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 import java.util.ArrayList;
 
-public class Card extends Label {
+public class Card extends ImageView {
     private int mX, mY;
     private Ship ship;
     private ArrayList<Pirate> pirates = new ArrayList<>();
     private CardType cardType;
     private boolean open;
     private int money = 0;
+    private boolean used = false;
 
     public Card(CardType cardType, int mX, int mY) {
         this.mX = mX;
         this.mY = mY;
         this.cardType = cardType;
+        setImage(new Image("images/cards/original/close2.png"));
+        if (cardType == CardType.SEA)
+            open();
+
     }
 
     public boolean isOpen() {
@@ -24,7 +30,8 @@ public class Card extends Label {
 
     public void open() {
         open = true;
-        setText(cardType.name());
+        setImage(new Image(cardType.getUrl()));
+//        setText(cardType.name());
     }
 
     public int getmX() {
@@ -69,5 +76,13 @@ public class Card extends Label {
 
     public void setMoney(int money) {
         this.money = money;
+    }
+
+    public boolean isUsed() {
+        return used;
+    }
+
+    public void setUsed(boolean used) {
+        this.used = used;
     }
 }

@@ -1,5 +1,11 @@
 .root {
-    -fx-background-color: #dae3ff;
+    /*-fx-background-color: #c3e3ff;*/
+    -fx-background-color: linear-gradient(#c3e3ff, white);
+}
+
+.menuBtn {
+    -fx-background-color: transparent;
+
 }
 
 .sidePanel {

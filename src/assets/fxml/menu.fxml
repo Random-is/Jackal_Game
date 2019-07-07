@@ -1,23 +1,85 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<AnchorPane fx:id="rootPane" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/10.0.1"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.MenuView">
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="rootPane" prefHeight="720.0" prefWidth="1280.0" stylesheets="@../css/game.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.MenuView">
     <children>
-        <StackPane prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                   AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-            <children>
-                <HBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="312.0" spacing="5.0">
-                    <children>
-                        <Button mnemonicParsing="false" onAction="#selectGameType" text="SINGLE"/>
-                        <Button mnemonicParsing="false" onAction="#selectGameType" text="MULTI"/>
-                        <Button mnemonicParsing="false" onAction="#selectGameType" text="HOST"/>
-                        <Button mnemonicParsing="false" onAction="#selectGameType" text="CONNECT"/>
-                        <Button mnemonicParsing="false" onAction="#selectGameType" text="HOTSEAT"/>
-                    </children>
-                </HBox>
-            </children>
-        </StackPane>
+      <AnchorPane layoutX="73.0" layoutY="95.0" prefHeight="625.0" prefWidth="242.0" styleClass="sidePanel" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="95.0">
+         <children>
+            <VBox layoutX="28.0" layoutY="54.0" prefHeight="545.0" prefWidth="277.0" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="24.0">
+               <children>
+                  <ImageView fitHeight="121.0" fitWidth="119.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS">
+                     <image>
+                        <Image url="@../images/J.png" />
+                     </image>
+                     <VBox.margin>
+                        <Insets left="71.0" />
+                     </VBox.margin>
+                  </ImageView>
+                  <TextField fx:id="nickField" alignment="CENTER" prefHeight="48.0" prefWidth="137.0" promptText="Nickname" style="-fx-background-radius: 15;">
+                     <font>
+                        <Font name="Calibri Light" size="25.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="18.0" right="25.0" top="30.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <HBox prefWidth="200.0" spacing="20.0">
+                     <children>
+                              <Button mnemonicParsing="false" onAction="#selectGameType" styleClass="menuBtn" text="Connect">
+                           <font>
+                              <Font name="Calibri Light" size="29.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets bottom="-8.0" />
+                           </HBox.margin>
+                        </Button>
+                        <AnchorPane fx:id="connectCircle" prefWidth="20.0" style="-fx-background-radius: 50; -fx-background-color: gray;">
+                           <HBox.margin>
+                              <Insets bottom="8.0" left="-16.0" top="19.0" />
+                           </HBox.margin>
+                        </AnchorPane>
+                     </children>
+                     <VBox.margin>
+                        <Insets top="18.0" />
+                     </VBox.margin>
+                  </HBox>
+                        <Button fx:id="multiBtn" disable="true" mnemonicParsing="false" onAction="#selectGameType" styleClass="menuBtn" text="Multiplayer">
+                     <font>
+                        <Font name="Calibri Light" size="29.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="-8.0" />
+                     </VBox.margin>
+                  </Button>
+                        <Button mnemonicParsing="false" onAction="#selectGameType" styleClass="menuBtn" text="Hotseat">
+                     <font>
+                        <Font name="Calibri Light" size="29.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin></Button>
+               </children>
+            </VBox>
+            <ImageView fx:id="search" fitHeight="47.0" fitWidth="71.0" layoutX="187.0" layoutY="293.0" pickOnBounds="true" preserveRatio="true" visible="false">
+               <image>
+                  <Image url="@../images/search.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <ImageView fitHeight="73.0" fitWidth="408.0" layoutX="316.0" layoutY="160.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="316.0" AnchorPane.topAnchor="160.0">
+         <image>
+            <Image url="@../images/ackal.png" />
+         </image>
+      </ImageView>
     </children>
 </AnchorPane>

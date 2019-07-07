@@ -5,18 +5,21 @@ import model.GameType;
 import model.Player;
 import model.PlayerList;
 import view.GameView;
+import view.MenuView;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class GameFactory {
     private Main main;
+    public static Client client;
 
     public GameFactory(Main main) {
         this.main = main;
     }
 
-    public void getGame(GameType gameType) {
+    public void getGame(GameType gameType) throws IOException {
         Game game = new Game(gameType);
         GameView gameView = main.getGameView();
         gameView.reset();
@@ -31,13 +34,14 @@ public class GameFactory {
                 players.get(i + 1).playerToBot(colors.get(0));
                 colors.remove(0);
             }
-            players.sort();
+            players.sortByColor();
             game.generateField();
             game.placeCrews();
             game.setCurrentTurnPlayer(players.get(0));
 
             Move move = new Move(game, gameView);
             move.createPiratesListenerForSingle();
+            move.createShipListenerForSingle();
             move.createCardListener();
 
             gameView.createImages(game);
@@ -45,9 +49,16 @@ public class GameFactory {
             gameView.setMap(game.getMatrix());
             gameView.setCrews(game);
             gameView.updateData(game);
+            gameView.getStage().show();
         } else if (gameType == GameType.MULTI) {
+            client.commandHandler("send CONNECT " + MenuView.nickname + " QUEUE");
         } else if (gameType == GameType.HOST) {
         } else if (gameType == GameType.CONNECT) {
+            client = new Client(game, gameView);
+            client.start();
+            game.setClient(client);
+            game.setGameType(GameType.MULTI);
+            client.commandHandler("con");
         } else if (gameType == GameType.HOT_SEAT) {
             ArrayList<String> colors = new ArrayList<>(Arrays.asList("black", "white", "yellow", "red"));
             PlayerList players = game.getPlayers();
@@ -56,7 +67,7 @@ public class GameFactory {
                 players.get(i).createCrew(colors.get(0));
                 colors.remove(0);
             }
-            players.sort();
+            players.sortByColor();
             game.setMainPlayer(players.get(0));
             game.setCurrentTurnPlayer(players.get(0));
             game.generateField();
@@ -64,6 +75,7 @@ public class GameFactory {
 
             Move move = new Move(game, gameView);
             move.createPiratesListenerForHotSeat();
+            move.createShipListenerForHotSeat();
             move.createCardListener();
 
             gameView.createImages(game);
@@ -71,7 +83,7 @@ public class GameFactory {
             gameView.setMap(game.getMatrix());
             gameView.setCrews(game);
             gameView.updateData(game);
+            gameView.getStage().show();
         }
-        gameView.getStage().show();
     }
 }

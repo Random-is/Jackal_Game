@@ -7,11 +7,14 @@ import java.util.ArrayList;
 public class Player {
     private String nickname = "NOT_CONNECTED";
     private boolean ready = false;
+    private int role = -1;
+
     private Image avatar;
     private String color;
     private Ship ship;
     private ArrayList<Pirate> pirates = new ArrayList<>();
     private int money = 0, rom = 0;
+    private int playersCount = 0;
 
     public Player() {
     }
@@ -33,13 +36,19 @@ public class Player {
         nickname = color.toUpperCase() + "_BOT";
     }
 
+    public void set(String nickname, boolean ready, int role) {
+        this.nickname = nickname;
+        this.ready = ready;
+        this.role = role;
+    }
+
     public void set(String nickname, boolean ready) {
         this.nickname = nickname;
         this.ready = ready;
     }
 
     public void reset() {
-        set("NOT_CONNECTED", false);
+        set("NOT_CONNECTED", false, -1);
     }
 
     public String getNickname() {
@@ -90,6 +99,10 @@ public class Player {
         return color;
     }
 
+    public void setColor(String color) {
+        this.color = color;
+    }
+
     public Ship getShip() {
         return ship;
     }
@@ -98,5 +111,21 @@ public class Player {
     public String toString() {
         return "[" + nickname + "] " +
                 (ready ? "READY" : "NOT_READY");
+    }
+
+    public int getPlayersCount() {
+        return playersCount;
+    }
+
+    public void setPlayersCount(int playersCount) {
+        this.playersCount = playersCount;
+    }
+
+    public int getRole() {
+        return role;
+    }
+
+    public void setRole(int role) {
+        this.role = role;
     }
 }
